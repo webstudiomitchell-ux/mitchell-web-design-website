@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
   const user = process.env.GMAIL_USER;
   const transporter = nodemailer.createTransport({
     service: "gmail",
-    auth: { user, pass: process.env.GMAIL_APP_PASSWORD },
+    auth: { user, pass: String(process.env.GMAIL_APP_PASSWORD || "").replace(/\s/g, "") }, // app passwords are shown with spaces
   });
 
   const text = [
