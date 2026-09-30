@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mitchell Web Design Co. | Custom websites and web apps</title>
+<meta name="description" content="Custom websites and web apps for small businesses: online scheduling, business websites and tools built around how you work. Call or text (519) 993-7098.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: wide desktop home page, logo-led nav, split hero with a live-looking week schedule, then services, process, example work, contact. Single brand look (light), colors set explicitly. */
+:root{
+  --forest:#2F4A3A; --forest-deep:#243A2D; --mustard:#D9A441; --rust:#C4553A;
+  --sand:#E9E1CF; --paper:#F7F2E6; --ink:#1F2A23; --muted:#5E6B60; --line:#D8CDB5;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:32px}
+@media (max-width:640px){.wrap{padding-inline:18px}}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;color:var(--forest-deep)}
+a{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--mustard);outline-offset:2px}
+
+/* Nav */
+.nav{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand svg{width:44px;height:44px;flex:none}
+.brand b{display:block;font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:.01em;color:var(--forest);line-height:1}
+.brand small{display:block;font-family:var(--display);font-weight:700;font-size:10px;letter-spacing:.22em;color:var(--forest);margin-top:5px}
+.links{display:flex;align-items:center;gap:28px;font-weight:600;font-size:16px}
+.links a{text-decoration:none;color:var(--ink)}
+.links a.active{color:var(--forest);box-shadow:inset 0 -3px 0 var(--mustard)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px;padding:13px 22px;border-radius:4px;text-decoration:none;border:2px solid var(--forest);cursor:pointer}
+.btn.solid{background:var(--forest);color:var(--paper)}
+.btn.solid:hover{background:var(--forest-deep)}
+.btn.ghost{background:transparent;color:var(--forest)}
+.btn.ghost:hover{background:var(--sand)}
+.phone-pill{font-family:var(--mono);font-size:14px;padding:10px 16px}
+@media (max-width:860px){.links a:not(.btn){display:none}}
+
+/* Hero */
+.hero{padding-block:80px 72px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+.eyebrow{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);margin:0 0 18px}
+.hero h1{font-size:clamp(38px,5vw,62px);line-height:1.04;font-weight:900;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--forest);background:linear-gradient(transparent 62%,rgba(217,164,65,.45) 62%)}
+.hero p.lead{font-size:20px;color:var(--muted);max-width:34ch;margin:24px 0 32px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+.hero .note{margin-top:22px;font-size:15px;color:var(--muted)}
+.hero .note strong{font-family:var(--mono);font-weight:500;color:var(--ink)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:44px}.hero{padding-block:48px}}
+
+/* Schedule card */
+.sched{background:#FFFFFF;border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px -24px rgba(36,58,45,.45);overflow:hidden;min-width:0}
+.sched-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--forest);color:var(--paper)}
+.sched-head b{font-family:var(--display);font-size:16px}
+.sched-head span{font-family:var(--mono);font-size:12px;opacity:.85}
+.sched-grid{display:grid;grid-template-columns:54px repeat(5,1fr);font-size:12px}
+.sched-grid > div{border-bottom:1px solid #EFE8D8;border-right:1px solid #EFE8D8;min-height:44px;padding:6px;min-width:0}
+.sched-grid .day{font-family:var(--display);font-weight:700;text-align:center;color:var(--muted);min-height:auto;padding:10px 4px;background:var(--paper)}
+.sched-grid .t{font-family:var(--mono);color:var(--muted);font-size:11px;text-align:right;padding-right:8px;background:var(--paper)}
+.slot{border-radius:3px;padding:5px 6px;font-weight:600;line-height:1.2;height:100%}
+.slot small{display:block;font-weight:400;opacity:.85;font-size:11px}
+.s-f{background:var(--forest);color:var(--paper)}
+.s-m{background:var(--mustard);color:var(--ink)}
+.s-r{background:var(--rust);color:#FFF8EE}
+.s-s{background:var(--sand);color:var(--forest-deep)}
+.sched-foot{display:flex;justify-content:space-between;padding:12px 20px;font-size:13px;color:var(--muted);background:var(--paper)}
+.sched-foot b{color:var(--forest)}
+
+/* Sections */
+section.band{padding-block:88px}
+.band.sand{background:var(--sand)}
+.band.dark{background:var(--forest);color:var(--paper)}
+.band.dark h2,.band.dark h3{color:var(--paper)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(30px,3.6vw,44px);font-weight:900;line-height:1.08;max-width:18ch}
+.sec-head p{max-width:42ch;color:var(--muted);margin:0}
+.band.dark .sec-head p{color:#CFD8CC}
+
+.services{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px}
+.svc{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:30px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.svc.main{background:var(--forest);color:var(--paper);border-color:var(--forest)}
+.svc.main h3{color:var(--paper)}
+.svc h3{font-size:24px;font-weight:800}
+.svc p{margin:0;color:var(--muted)}
+.svc.main p{color:#D6DED2}
+.svc ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:16px}
+.svc li{display:flex;gap:10px;align-items:baseline}
+.svc li::before{content:"";width:9px;height:9px;flex:none;background:var(--mustard);transform:translateY(-1px)}
+.svc:not(.main) li::before{background:var(--forest)}
+.tag{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--rust)}
+.svc.main .tag{color:var(--mustard)}
+@media (max-width:900px){.services{grid-template-columns:1fr}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s}
+.step{border-top:4px solid var(--mustard);padding-top:20px;min-width:0}
+.step .n{font-family:var(--mono);font-size:13px;color:var(--mustard)}
+.step h3{font-size:22px;font-weight:800;margin:8px 0 8px}
+.step p{margin:0;color:#CFD8CC;font-size:16px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+.work{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.work-shot{background:var(--sand);border-radius:6px;padding:28px;min-width:0}
+.phone{max-width:260px;margin:0 auto;background:#FFFFFF;border:10px solid var(--ink);border-radius:30px;padding:18px 14px;display:grid;gap:10px}
+.phone .ph-title{font-family:var(--display);font-weight:800;color:var(--forest-deep);font-size:16px}
+.phone .row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:6px;background:var(--paper);font-size:14px;gap:8px}
+.phone .row span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.phone .row.on{background:var(--forest);color:var(--paper)}
+.phone .row.on span{color:var(--mustard)}
+.work h2{font-size:clamp(28px,3.2vw,40px);font-weight:900;line-height:1.1}
+.work p{color:var(--muted);max-width:44ch}
+.facts{display:flex;gap:36px;margin:26px 0 30px;flex-wrap:wrap}
+.facts div{font-size:14px;color:var(--muted)}
+.facts b{display:block;font-family:var(--display);font-size:30px;color:var(--forest);font-variant-numeric:tabular-nums}
+@media (max-width:900px){.work{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.contact h2{font-size:clamp(30px,3.6vw,44px);font-weight:900;line-height:1.08}
+.contact .lead{color:var(--muted);max-width:36ch}
+.callbox{margin-top:28px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:22px 24px;display:grid;gap:6px}
+.callbox .lbl{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust)}
+.callbox .num{font-family:var(--display);font-weight:900;font-size:34px;color:var(--forest);font-variant-numeric:tabular-nums;user-select:all}
+.callbox small{color:var(--muted)}
+form{background:#FFFFFF;border:1px solid var(--line);border-radius:6px;padding:32px;display:grid;gap:18px;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:grid;gap:6px;font-weight:600;font-size:15px}
+label .opt{font-weight:400;color:var(--muted);font-size:13px}
+input,select,textarea{font:inherit;font-size:16px;padding:12px 14px;border:1.5px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);width:100%}
+textarea{min-height:96px;resize:vertical}
+.form-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.form-foot small{color:var(--muted)}
+.thanks{background:var(--sand);border-left:4px solid var(--forest);padding:12px 14px;border-radius:3px;font-weight:600;color:var(--forest-deep)}
+@media (max-width:900px){.contact{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+
+footer{background:var(--forest-deep);color:#CFD8CC;padding-block:36px;font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .brand b,footer .brand small{color:var(--paper)}
+.mock-note{background:var(--mustard);color:var(--ink);font-size:13px;padding:8px 16px;font-weight:600;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+.switch{display:flex;gap:6px;flex-wrap:wrap}
+.switch button{font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border-radius:3px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--mustard)}
+
+/* Graphic styles */
+.art{min-width:0;position:relative}
+.art [data-art]{display:none}
+body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="a"],body[data-style="b"] .art [data-art="b"],body[data-style="c"] .art [data-art="c"],body[data-style="d"] .art [data-art="d"]{display:block}
+.art svg{width:100%;height:auto;display:block}
+.art-b{position:relative;padding-bottom:10px}
+.float-card{position:absolute;left:-18px;bottom:36px;background:#FFFFFF;border:1px solid var(--line);border-radius:6px;box-shadow:0 14px 30px -18px rgba(36,58,45,.6);padding:12px 16px;display:flex;gap:12px;align-items:center}
+.float-card b{display:block;font-family:var(--display);font-size:15px;color:var(--forest-deep)}
+.float-card small{display:block;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.float-card .dot{width:12px;height:12px;background:var(--rust);flex:none}
+.float-card.two{left:auto;right:-10px;bottom:auto;top:18px;display:block}
+@media (max-width:640px){.float-card{left:0}.float-card.two{right:0}}
+@media (prefers-reduced-motion:no-preference){#blockart rect{animation:pop .5s both}@keyframes pop{from{transform:scale(.6);opacity:.3}to{transform:none;opacity:1}}#blockart rect{transform-box:fill-box;transform-origin:center}}
+
+.art-c{position:relative;padding:10px 0 40px}
+.laptop{max-width:470px}
+.laptop .screen{background:var(--ink);border-radius:10px 10px 0 0;padding:12px}
+.laptop .base{height:14px;background:#5E6B60;border-radius:0 0 12px 12px;margin:0 -24px}
+.mini-nav{display:flex;align-items:center;gap:10px;background:var(--paper);padding:10px 12px;border-radius:4px 4px 0 0}
+.mini-logo{width:18px;height:18px;background:var(--forest)}
+.mini-nav i{height:6px;width:36px;background:var(--line);border-radius:3px}
+.mini-nav i:first-of-type{margin-left:auto}
+.mini-body{background:#FFFFFF;display:grid;grid-template-columns:1fr 1.2fr;gap:18px;padding:22px 16px;border-radius:0 0 4px 4px}
+.mini-left b{display:block;font-family:var(--display);font-size:20px;color:var(--forest-deep);line-height:1.1}
+.mini-left small{display:block;color:var(--muted);font-size:12px;margin:6px 0 14px}
+.mini-btn{display:inline-block;background:var(--forest);color:var(--paper);font-size:12px;font-weight:600;padding:7px 12px;border-radius:3px}
+.mini-cal{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;font-family:var(--mono);font-size:10px;color:var(--muted);text-align:center}
+.mini-cal em{aspect-ratio:1;background:var(--paper);border:1px solid #EFE8D8;border-radius:2px}
+.mini-cal em.on{background:var(--sand)}
+.mini-cal em.busy{background:#DCE3DA}
+.mini-cal em.pick{background:var(--rust);border-color:var(--rust)}
+.mobile{position:absolute;right:0;bottom:0;width:150px;background:#FFFFFF;border:8px solid var(--ink);border-radius:22px;padding:16px 12px;display:grid;gap:8px;box-shadow:0 18px 30px -18px rgba(0,0,0,.5)}
+.mobile b{font-family:var(--display);font-size:14px;color:var(--forest-deep)}
+.m-row{font-size:12px;background:var(--paper);padding:7px 8px;border-radius:4px}
+.m-go{font-size:12px;font-weight:700;text-align:center;background:var(--mustard);padding:8px;border-radius:4px}
+@media (max-width:640px){.mobile{width:120px}.mini-body{grid-template-columns:1fr}}
+
+.svc .ico{width:40px;height:40px;flex:none}
+
+.projects{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.project{display:grid;gap:22px;min-width:0}
+.project h3{font-size:26px;font-weight:900;margin-bottom:8px}
+.project-text p:not(.eyebrow){margin:0;color:var(--muted);max-width:46ch}
+.project .eyebrow{margin-bottom:8px}
+.letters{max-width:300px;margin:0 auto;background:#FFFFFF;border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:10px;box-shadow:0 14px 30px -20px rgba(36,58,45,.5)}
+.letters .ph-title{font-family:var(--display);font-weight:800;color:var(--forest-deep);font-size:16px}
+.env{display:flex;align-items:center;gap:12px;background:var(--paper);padding:10px 12px;border-radius:4px}
+.env svg{width:34px;height:24px;flex:none}
+.env b{display:block;font-family:var(--display);font-size:15px;color:var(--forest-deep)}
+.env small{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.env.new{background:var(--sand)}
+@media (max-width:900px){.projects{grid-template-columns:1fr}}
+
+.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.portrait{margin:0;aspect-ratio:4/5;max-width:100%;background:var(--sand);border-radius:6px;display:grid;place-items:center;align-content:center;gap:14px;position:relative;overflow:hidden}
+.portrait svg{width:96px;height:96px;opacity:.9}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait figcaption{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.bio{min-width:0;max-width:62ch}
+.bio p{margin:0 0 18px;font-size:18px}
+.bio .hello{font-family:var(--display);font-weight:900;font-size:30px;color:var(--forest-deep);margin-bottom:22px}
+.about-band{padding-top:24px}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:36px}.portrait{max-width:360px}}
+.bio-cta{margin:28px 0 0}
+/* Page views */
+.view{display:none}
+.view.on{display:block}
+.page-head{padding-block:72px 40px}
+.page-head h1{font-size:clamp(34px,4.4vw,54px);font-weight:900;line-height:1.06;max-width:20ch}
+.page-head .lead{font-size:20px;color:var(--muted);max-width:52ch;margin:20px 0 0}
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.overview div{background:var(--paper);border-top:4px solid var(--forest);padding:24px 24px 26px;min-width:0}
+.overview h3{font-size:21px;font-weight:800;margin-bottom:8px}
+.overview p{margin:0;color:var(--muted)}
+.more{margin:32px 0 0}
+.svc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+.svc-list li{padding:26px 24px 28px 0;border-bottom:1px solid var(--line);display:grid;gap:6px;min-width:0;position:relative;padding-left:26px}
+.svc-list li::before{content:"";position:absolute;left:0;top:33px;width:12px;height:12px;background:var(--forest)}
+.svc-list li:nth-child(3n+2)::before{background:var(--mustard)}
+.svc-list li:nth-child(3n)::before{background:var(--rust)}
+.svc-list b{font-family:var(--display);font-size:20px;font-weight:800;color:var(--forest-deep)}
+.svc-list span{color:var(--muted)}
+.not-listed{margin:32px 0 0;font-size:18px}
+.not-listed a{color:var(--forest);font-weight:700}
+.cta-band .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta-band h2{font-size:clamp(26px,3vw,36px);font-weight:900}
+.links a[aria-current="page"]{color:var(--forest);box-shadow:inset 0 -3px 0 var(--mustard)}
+@media (max-width:900px){.overview,.svc-list{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s}}
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="blockM" viewBox="0 0 68 68">
+      <g fill="currentColor">
+        <rect x="0" y="0" width="12" height="12"/><rect x="0" y="14" width="12" height="12"/><rect x="0" y="28" width="12" height="12"/><rect x="0" y="42" width="12" height="12"/><rect x="0" y="56" width="12" height="12"/>
+        <rect x="56" y="0" width="12" height="12"/><rect x="56" y="14" width="12" height="12"/><rect x="56" y="28" width="12" height="12"/><rect x="56" y="42" width="12" height="12"/><rect x="56" y="56" width="12" height="12"/>
+      </g>
+      <rect x="14" y="14" width="12" height="12" fill="#D9A441"/><rect x="42" y="14" width="12" height="12" fill="#D9A441"/>
+      <rect x="28" y="28" width="12" height="12" fill="#C4553A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Mitchell Web Design Co. home">
+      <svg style="color:#2F4A3A"><use href="#blockM"/></svg>
+      <span><b>MITCHELL</b><small>WEB DESIGN CO.</small></span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#services" data-nav="services">Services</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+      <a class="btn solid phone-pill" href="#contact">(519) 993-7098</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="view" data-view="home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Custom websites &amp; web apps</p>
+        <h1>Websites and web apps built <em>for your business</em>, not from a template.</h1>
+        <p class="lead">I build custom websites and web apps for small businesses: online scheduling, sites that get customers to reach out, and tools that take busywork off your plate. You work with me directly, from the first call to launch day.</p>
+        <div class="cta-row">
+          <a class="btn solid" href="#contact">Tell me about your project</a>
+          <a class="btn ghost" href="#services">See what I build</a>
+        </div>
+        <p class="note">Rather talk? Call or text <strong>(519) 993-7098</strong></p>
+      </div>
+
+      <div class="art">
+      <!-- B: block art -->
+      <div class="art-b" data-art="b">
+        <svg id="blockart" viewBox="0 0 460 414" role="img" aria-label="A large M built from colored squares, like a calendar grid"></svg>
+        <div class="float-card"><span class="dot"></span><div><b>New booking</b><small>Tue, Oct 7 · 10:30 AM</small></div></div>
+        <div class="float-card two"><b>3 reminders sent</b><small>today</small></div>
+      </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="band sand">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>What I do</h2>
+        <p>If it lives on the web and helps your business run, I can build it.</p>
+      </div>
+      <div class="overview">
+        <div><h3>Scheduling &amp; booking</h3><p>Let customers book online and keep your staff on the same page.</p></div>
+        <div><h3>Business websites</h3><p>A clean site that tells people what you do and gets them to call.</p></div>
+        <div><h3>Custom web apps</h3><p>Forms, portals and tools shaped around how you already work.</p></div>
+      </div>
+      <p class="more"><a class="btn solid" href="#services">See everything I build</a></p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Recent work</h2>
+        <p>Two tools built for a summer camp, each made around how the camp already runs.</p>
+      </div>
+      <div class="projects">
+        <article class="project">
+          <div class="work-shot">
+            <div class="phone" aria-label="Example scheduling app screen">
+              <div class="ph-title">Saturday activities</div>
+              <div class="row on">Morning swim <span>9:00</span></div>
+              <div class="row">Arts &amp; crafts <span>10:30</span></div>
+              <div class="row">Lunch <span>12:00</span></div>
+              <div class="row">Hiking group <span>1:30</span></div>
+              <div class="row">Campfire <span>7:00</span></div>
+            </div>
+          </div>
+          <div class="project-text">
+            <p class="eyebrow">Summer camp</p>
+            <h3>Camp scheduling app</h3>
+            <p>Counselors, cabins and activities all in one place. Staff see their day at a glance, and schedule changes reach everyone right away.</p>
+          </div>
+        </article>
+        <article class="project">
+          <div class="work-shot">
+            <div class="letters" aria-label="Example camper letter screen">
+              <div class="ph-title">Today's mail call</div>
+              <div class="env"><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="25" rx="2" fill="#F7F2E6" stroke="#2F4A3A" stroke-width="3"/><path d="M2 3 L20 16 L38 3" fill="none" stroke="#2F4A3A" stroke-width="3"/></svg><div><b>Cabin 4</b><small>6 letters · printed</small></div></div>
+              <div class="env"><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="25" rx="2" fill="#F7F2E6" stroke="#2F4A3A" stroke-width="3"/><path d="M2 3 L20 16 L38 3" fill="none" stroke="#2F4A3A" stroke-width="3"/></svg><div><b>Cabin 7</b><small>3 letters · printed</small></div></div>
+              <div class="env new"><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="1.5" y="1.5" width="37" height="25" rx="2" fill="#D9A441" stroke="#2F4A3A" stroke-width="3"/><path d="M2 3 L20 16 L38 3" fill="none" stroke="#2F4A3A" stroke-width="3"/></svg><div><b>Cabin 12</b><small>2 new letters</small></div></div>
+            </div>
+          </div>
+          <div class="project-text">
+            <p class="eyebrow">Summer camp</p>
+            <h3>Camper letter system</h3>
+            <p>Letters to campers come in online and are sorted by cabin, ready to print for mail call. No more hand-sorting a pile of email.</p>
+          </div>
+        </article>
+      </div>
+      <p class="more"><a class="btn ghost" href="#contact">Want something like this?</a></p>
+    </div>
+  </section>
+</div>
+<div class="view" data-view="services">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Services</p>
+      <h1>Custom websites and web apps, made to fit.</h1>
+      <p class="lead">Every business runs a little differently. I build the site or app around your way of working, so you're not bending your business to fit someone else's software.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap">
+      <ul class="svc-list">
+        <li><b>Scheduling &amp; booking systems</b><span>Online booking, appointment calendars and automatic reminders.</span></li>
+        <li><b>Staff &amp; shift scheduling</b><span>Who's working when, shift swaps and time off in one place.</span></li>
+        <li><b>Business websites</b><span>A fast, mobile-friendly site that explains what you do.</span></li>
+        <li><b>Websites that bring in customers</b><span>Contact forms, quote requests and click-to-call built in.</span></li>
+        <li><b>Sign-ups &amp; registrations</b><span>Class, event and program sign-ups with waitlists and payments.</span></li>
+        <li><b>Customer portals</b><span>A private login where clients see bookings, files or updates.</span></li>
+        <li><b>Online forms &amp; intake</b><span>Replace paper forms with ones that fill themselves into your records.</span></li>
+        <li><b>Dashboards &amp; internal tools</b><span>See your numbers and manage your day without spreadsheets.</span></li>
+        <li><b>Updates, hosting &amp; support</b><span>I keep it running, fix issues and add features as you grow.</span></li>
+      </ul>
+      <p class="not-listed">Don't see what you need? If it happens on a computer or phone, there's a good chance I can build it. <a href="#contact">Ask me.</a></p>
+    </div>
+  </section>
+  <section class="band dark">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How we'll work together</h2>
+        <p>Straightforward from the first call. You always know what's happening and what it costs.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">Step 1</span><h3>Talk</h3><p>A quick call about your business and what is getting in the way.</p></div>
+        <div class="step"><span class="n">Step 2</span><h3>Plan</h3><p>A clear plan and price before any work begins.</p></div>
+        <div class="step"><span class="n">Step 3</span><h3>Build</h3><p>You see progress along the way and give feedback early.</p></div>
+        <div class="step"><span class="n">Step 4</span><h3>Launch</h3><p>I set it up, show your team how it works, and stay on call.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="band sand cta-band">
+    <div class="wrap">
+      <h2>Have something in mind?</h2>
+      <a class="btn solid" href="#contact">Tell me about your project</a>
+    </div>
+  </section>
+</div>
+<div class="view" data-view="about">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1>Less time on the computer, more time with your people.</h1>
+    </div>
+  </section>
+  <section class="band about-band">
+    <div class="wrap about">
+      <figure class="portrait"><img src="faith.jpg" alt="Faith Mitchell" alt="Faith Mitchell smiling in front of a lake, wearing a maroon Haliburton Hockey Haven sweatshirt" width="900" height="1225"></figure>
+      <div class="bio">
+        <p class="hello">Hi, I'm Faith Mitchell.</p>
+        <p>For nine years I've worked at Haliburton Hockey Haven, a summer sports camp. I started as a counsellor and worked my way up to program director, a role I've held for the last five years.</p>
+        <p>Last year I started learning how to build websites and apps, and I decided to build something that would make my own job easier. The result was a complete scheduling app for camp. It ran for my last summer and will stay a part of camp going forward.</p>
+        <p>With it, I spent a third as much time in the office. That meant more time with the campers and staff, which has always been the most important part of camp for me.</p>
+        <p>Now I want to give other businesses the same thing: less time on the computer, and more time with the people.</p>
+        <p class="bio-cta"><a class="btn solid" href="#contact">Let's talk about your business</a></p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="view" data-view="contact">
+  <section class="band sand" id="contact">
+    <div class="wrap contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>Let's talk about what you need.</h2>
+        <p class="lead">Fill out as much or as little as you like. I'll get back to you within one business day.</p>
+        <div class="callbox">
+          <span class="lbl">Call or text</span>
+          <span class="num">(519) 993-7098</span>
+          <small>Mon to Fri, 9am to 6pm</small>
+        </div>
+      </div>
+      <form id="lead" action="https://formspree.io/f/FORM_ID" method="POST" novalidate>
+        <div class="two">
+          <label for="f-name">Your name <span class="opt">Optional</span><input id="f-name" name="name" autocomplete="name"></label>
+          <label for="f-reach">Phone or email<input id="f-reach" name="reach" required placeholder="So I can reply"></label>
+        </div>
+        <label for="f-kind">What are you looking for? <span class="opt">Optional</span>
+          <select id="f-kind" name="kind">
+            <option value="">Choose one</option>
+            <option>A scheduling or booking app</option>
+            <option>A website</option>
+            <option>Other custom software</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label for="f-notes">Anything else? <span class="opt">Optional</span><textarea id="f-notes" name="notes" placeholder="A sentence or two is plenty"></textarea></label>
+        <div class="form-foot">
+          <small>Only a way to reach you is required.</small>
+          <button class="btn solid" type="submit">Send message</button>
+        </div>
+        <div class="thanks" id="thanks" hidden role="status"></div>
+      </form>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="Back to top">
+      <svg style="color:#F7F2E6"><use href="#blockM"/></svg>
+      <span><b>MITCHELL</b><small>WEB DESIGN CO.</small></span>
+    </a>
+    <span>(519) 993-7098 · © 2026 Mitchell Web Design Co.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Block art: a big M on a calendar-like grid
+  var rows = [
+    "s...o....s",
+    ".g......g.",
+    ".gm....mg.",
+    "sg.m..m.g.",
+    ".g..rr..g.",
+    ".g......go",
+    ".g..s...g.",
+    "og......gs",
+    "..s..o...."
+  ];
+  var fills = { g: "#2F4A3A", m: "#D9A441", r: "#C4553A", s: "#E9E1CF" };
+  var svg = document.getElementById("blockart"), out = "", i = 0;
+  rows.forEach(function (row, y) {
+    row.split("").forEach(function (c, x) {
+      var px = x * 46, py = y * 46;
+      if (c === ".") out += '<rect x="' + px + '" y="' + py + '" width="40" height="40" fill="none" stroke="#E9E1CF" stroke-width="1.5"/>';
+      else if (c === "o") out += '<rect x="' + (px + 1) + '" y="' + (py + 1) + '" width="38" height="38" fill="none" stroke="#C4553A" stroke-width="2.5"/>';
+      else out += '<rect x="' + px + '" y="' + py + '" width="40" height="40" fill="' + fills[c] + '" style="animation-delay:' + (i++ * 25) + 'ms"/>';
+    });
+  });
+  svg.innerHTML = out;
+
+})();
+
+
+(function () {
+  var pages = ["home", "services", "about", "contact"];
+  function show() {
+    var h = (location.hash || "").slice(1);
+    var p = pages.indexOf(h) >= 0 ? h : "home";
+    document.querySelectorAll(".view").forEach(function (v) { v.classList.toggle("on", v.dataset.view === p); });
+    document.querySelectorAll("[data-nav]").forEach(function (a) {
+      if (a.dataset.nav === p) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", show);
+  show();
+})();
+
+document.getElementById('lead').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var form = e.target, reach = document.getElementById('f-reach'), msg = document.getElementById('thanks');
+  var btn = form.querySelector('button[type=submit]');
+  if (!reach.value.trim()) { reach.focus(); reach.style.borderColor = '#C4553A'; return; }
+  reach.style.borderColor = '';
+  btn.disabled = true; btn.textContent = 'Sending...';
+  fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+    .then(function (r) {
+      if (!r.ok) throw new Error();
+      form.reset();
+      msg.textContent = "Thanks! Your message is on its way. I'll get back to you within one business day.";
+    })
+    .catch(function () {
+      msg.textContent = "Sorry, that didn't send. Please call or text (519) 993-7098 instead.";
+    })
+    .then(function () { msg.hidden = false; btn.disabled = false; btn.textContent = 'Send message'; });
+});
+</script>
+
+</body>
+</html>
