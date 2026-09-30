@@ -129,7 +129,9 @@ section.band{padding-block:88px}
 .contact .lead{color:var(--muted);max-width:36ch}
 .callbox{margin-top:28px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:22px 24px;display:grid;gap:6px}
 .callbox .lbl{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--rust)}
-.callbox .num{font-family:var(--display);font-weight:900;font-size:34px;color:var(--forest);font-variant-numeric:tabular-nums;user-select:all}
+.callbox .num{font-family:var(--display);font-weight:900;font-size:34px;color:var(--forest);font-variant-numeric:tabular-nums}
+.tel,a.num{text-decoration:none}
+.tel:hover,a.num:hover{text-decoration:underline}
 .callbox small{color:var(--muted)}
 form{background:#FFFFFF;border:1px solid var(--line);border-radius:6px;padding:32px;display:grid;gap:18px;min-width:0}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -269,7 +271,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
       <a href="#services" data-nav="services">Services</a>
       <a href="#about" data-nav="about">About</a>
       <a href="#contact" data-nav="contact">Contact</a>
-      <a class="btn solid phone-pill" href="#contact">(519) 993-7098</a>
+      <a class="btn solid phone-pill" href="tel:+15199937098">(519) 993-7098</a>
     </nav>
   </div>
 </header>
@@ -286,7 +288,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
           <a class="btn solid" href="#contact">Tell me about your project</a>
           <a class="btn ghost" href="#services">See what I build</a>
         </div>
-        <p class="note">Rather talk? Call or text <strong>(519) 993-7098</strong></p>
+        <p class="note">Rather talk? Call or text <a class="tel" href="tel:+15199937098"><strong>(519) 993-7098</strong></a></p>
       </div>
 
       <div class="art">
@@ -435,7 +437,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
         <p class="lead">Fill out as much or as little as you like. I'll get back to you within one business day.</p>
         <div class="callbox">
           <span class="lbl">Call or text</span>
-          <span class="num">(519) 993-7098</span>
+          <a class="num" href="tel:+15199937098">(519) 993-7098</a>
           <small>Mon to Fri, 9am to 6pm</small>
         </div>
       </div>
@@ -472,7 +474,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
       <svg style="color:#F7F2E6"><use href="#blockM"/></svg>
       <span><b>MITCHELL</b><small>WEB DESIGN CO.</small></span>
     </a>
-    <span>(519) 993-7098 · © 2026 Mitchell Web Design Co.</span>
+    <span><a class="tel" href="tel:+15199937098">(519) 993-7098</a> · © 2026 Mitchell Web Design Co.</span>
   </div>
 </footer>
 
