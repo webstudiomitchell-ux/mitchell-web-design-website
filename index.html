@@ -139,6 +139,7 @@ input,select,textarea{font:inherit;font-size:16px;padding:12px 14px;border:1.5px
 textarea{min-height:96px;resize:vertical}
 .form-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .form-foot small{color:var(--muted)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .thanks{background:var(--sand);border-left:4px solid var(--forest);padding:12px 14px;border-radius:3px;font-weight:600;color:var(--forest-deep)}
 @media (max-width:900px){.contact{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
 
@@ -438,7 +439,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
           <small>Mon to Fri, 9am to 6pm</small>
         </div>
       </div>
-      <form id="lead" action="https://formspree.io/f/FORM_ID" method="POST" novalidate>
+      <form id="lead" action="/api/contact" method="POST" novalidate>
         <div class="two">
           <label for="f-name">Your name <span class="opt">Optional</span><input id="f-name" name="name" autocomplete="name"></label>
           <label for="f-reach">Phone or email<input id="f-reach" name="reach" required placeholder="So I can reply"></label>
@@ -452,6 +453,7 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
             <option>Not sure yet</option>
           </select>
         </label>
+        <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label>
         <label for="f-notes">Anything else? <span class="opt">Optional</span><textarea id="f-notes" name="notes" placeholder="A sentence or two is plenty"></textarea></label>
         <div class="form-foot">
           <small>Only a way to reach you is required.</small>
@@ -525,7 +527,7 @@ document.getElementById('lead').addEventListener('submit', function (e) {
   if (!reach.value.trim()) { reach.focus(); reach.style.borderColor = '#C4553A'; return; }
   reach.style.borderColor = '';
   btn.disabled = true; btn.textContent = 'Sending...';
-  fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+  fetch(form.action, { method: 'POST', body: JSON.stringify(Object.fromEntries(new FormData(form))), headers: { 'Content-Type': 'application/json' } })
     .then(function (r) {
       if (!r.ok) throw new Error();
       form.reset();
