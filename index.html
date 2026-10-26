@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Kalam:wght@400;700&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Layout: wide desktop home page, logo-led nav, split hero with a live-looking week schedule, then services, process, example work, contact. Single brand look (light), colors set explicitly. */
 :root{
@@ -242,7 +242,105 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
 .links a[aria-current="page"]{color:var(--forest);box-shadow:inset 0 -3px 0 var(--mustard)}
 @media (max-width:900px){.overview,.svc-list{grid-template-columns:1fr}}
 
-@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s}}
+
+/* ---- Pizzazz layer (Oct 2026): bold green hero + ticker + colour blocks, handwritten touches and polaroid photo, mustard page heads, chunky buttons and a before/after demo ---- */
+:root{--hand:"Kalam","Segoe Print","Comic Neue",cursive;--display:"Times New Roman",Times,"Tinos",serif;--body:"Times New Roman",Times,"Tinos",serif}
+body{font-size:18px}
+.brand b,.brand small{font-family:"Archivo","Helvetica Neue",Arial,sans-serif}
+.hand{font-family:var(--hand);font-weight:400}
+.btn{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink);border-radius:3px}
+.btn.pop{background:var(--mustard);color:var(--ink)}
+.btn.pop:hover{background:#E3B358}
+.btn.light{background:transparent;color:var(--paper);border-color:var(--paper);box-shadow:4px 4px 0 rgba(0,0,0,.35)}
+.btn.light:hover{background:rgba(247,242,230,.1)}
+.links .btn{box-shadow:none;border-color:var(--forest)}
+@media (prefers-reduced-motion:no-preference){.btn{transition:transform .12s,box-shadow .12s,background .15s}.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}.btn.light:hover{box-shadow:2px 2px 0 rgba(0,0,0,.35)}.links .btn:hover{transform:none;box-shadow:none}}
+
+.hero.green{background:var(--forest);color:var(--paper);overflow:hidden}
+.hero.green h1{color:var(--paper);font-stretch:116%;font-size:clamp(36px,5.2vw,66px);line-height:1}
+.hero.green h1 em{background:none;color:var(--mustard)}
+.hero.green p.lead{color:#D6DED2;max-width:38ch}
+.hero.green .note{color:#CFD8CC}
+.hero.green .note strong{color:var(--paper)}
+.hi{font-size:24px;color:var(--mustard);margin:0 0 12px;display:inline-block;transform:rotate(-2deg)}
+.mark{position:relative;white-space:nowrap}
+.mark svg{position:absolute;left:-3%;bottom:-.2em;width:106%;height:.45em;overflow:visible}
+.mark path{stroke-dasharray:400;stroke-dashoffset:0}
+@media (prefers-reduced-motion:no-preference){.mark path{animation:draw 1.3s .5s ease-out both}@keyframes draw{from{stroke-dashoffset:400}to{stroke-dashoffset:0}}}
+.art canvas{display:block;width:100%;max-width:520px;aspect-ratio:1;margin-left:auto}
+.hero.green .float-card{color:var(--ink)}
+
+.ticker{background:var(--mustard);color:var(--ink);overflow:hidden;white-space:nowrap;border-block:3px solid var(--ink)}
+.ticker div{display:inline-flex;gap:28px;padding:14px 0;font-family:var(--display);font-weight:800;font-stretch:112%;font-size:20px;text-transform:uppercase}
+.ticker em{font-style:normal;color:var(--rust)}
+@media (prefers-reduced-motion:no-preference){.ticker div{animation:tick 34s linear infinite}@keyframes tick{to{transform:translateX(-50%)}}}
+
+.blocks{display:grid;grid-template-columns:repeat(3,1fr)}
+.blocks article{padding:32px 28px 36px;min-height:250px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.blocks article:nth-child(1){background:var(--forest);color:var(--paper)}
+.blocks article:nth-child(2){background:var(--mustard);color:var(--ink)}
+.blocks article:nth-child(3){background:var(--rust);color:#FFF8EE}
+.blocks h3{font-stretch:110%;font-weight:900;font-size:28px;line-height:1.05;margin-top:auto;color:inherit}
+.blocks p{margin:0;opacity:.92}
+.blk{display:grid;grid-template-columns:repeat(3,14px);gap:4px}
+.blk i{width:14px;height:14px;background:currentColor;opacity:.25}
+.blk i.on{opacity:1}
+.big-h{font-stretch:115%}
+@media (max-width:900px){.blocks{grid-template-columns:1fr}.blocks article{min-height:0}}
+
+.meet{display:grid;grid-template-columns:.75fr 1.25fr;gap:64px;align-items:center}
+.meet h2{font-size:clamp(28px,3.4vw,42px);font-weight:900;line-height:1.1;max-width:20ch}
+.meet p{color:var(--muted);max-width:46ch;font-size:18px}
+.meet .hand{font-size:22px;color:var(--rust);margin:0 0 8px}
+.polaroid-wrap{position:relative;width:min(340px,100%);justify-self:center}
+.polaroid{margin:0;background:#FFFFFF;padding:14px 14px 56px;box-shadow:0 22px 40px -22px rgba(36,58,45,.6);transform:rotate(3deg);position:relative}
+.polaroid img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.polaroid figcaption{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:var(--hand);font-size:20px;color:var(--ink)}
+.tape{position:absolute;top:-14px;left:50%;width:110px;height:30px;margin-left:-55px;background:rgba(217,164,65,.7);transform:rotate(-4deg)}
+.sticker{position:absolute;left:-30px;top:48%;font-family:var(--display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;padding:10px 14px;border-radius:30px;background:var(--rust);color:var(--paper);transform:rotate(-8deg);box-shadow:0 8px 18px -10px rgba(0,0,0,.45)}
+@media (max-width:900px){.meet{grid-template-columns:1fr;gap:40px}.sticker{left:-6px}}
+
+.band.mustard{background:var(--mustard)}
+.band.mustard .sec-head p{color:var(--ink)}
+.demo-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.demo-grid h2{font-stretch:75%;font-weight:900;text-transform:uppercase;font-size:clamp(36px,4.8vw,60px);line-height:.95}
+.demo-grid p{max-width:40ch;font-size:18px}
+.demo{background:#FFFFFF;border:2px solid var(--ink);box-shadow:8px 8px 0 var(--forest-deep);border-radius:6px;overflow:hidden;min-width:0}
+.demo-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;background:var(--forest);color:var(--paper);flex-wrap:wrap}
+.demo-head b{font-family:var(--display);font-size:15px}
+.toggle{display:inline-flex;background:var(--forest-deep);border-radius:30px;padding:3px}
+.toggle button{font:inherit;font-family:var(--display);font-weight:700;font-size:13px;border:0;background:transparent;color:var(--paper);padding:6px 14px;border-radius:30px;cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--mustard);color:var(--ink)}
+.week{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:14px}
+.wday{display:grid;gap:6px;align-content:start;min-width:0}
+.wday > b{font-family:var(--display);font-size:12px;color:var(--muted);text-align:center}
+.wslot{height:36px;border-radius:3px;font-size:11px;font-weight:600;padding:4px 6px;line-height:1.15;overflow:hidden}
+.wslot.office{background:var(--rust);color:#FFF8EE}
+.wslot.people{background:var(--forest);color:var(--paper)}
+.wslot.free{background:var(--sand);color:var(--forest-deep)}
+@media (prefers-reduced-motion:no-preference){.wslot{animation:drop .35s both}@keyframes drop{from{transform:translateY(-8px);opacity:.2}to{transform:none;opacity:1}}}
+.demo-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-top:2px solid var(--ink);background:var(--paper);font-size:14px;flex-wrap:wrap}
+.meter{flex:1;min-width:120px;height:12px;background:var(--sand);border-radius:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--rust);transition:width .5s}
+.demo-foot b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+@media (max-width:900px){.demo-grid{grid-template-columns:1fr;gap:36px}}
+@media (max-width:480px){.wslot{font-size:10px;padding:3px 4px}}
+
+.page-head{background:var(--mustard)}
+.page-head .eyebrow{display:inline-block;background:var(--ink);color:var(--mustard);font-family:var(--mono);font-weight:500;letter-spacing:.06em;padding:5px 10px}
+.page-head h1{font-stretch:74%;text-transform:uppercase;font-size:clamp(40px,6vw,76px);line-height:.94;max-width:16ch}
+.page-head h1 em{background:none;color:var(--paper);-webkit-text-stroke:2px var(--forest-deep);paint-order:stroke fill}
+.page-head .lead{color:var(--ink)}
+.about-band{padding-top:72px}
+
+.svc-list{gap:20px;border-top:0}
+.svc-list li{background:var(--paper);border:2px solid var(--ink);box-shadow:6px 6px 0 var(--mustard);border-radius:4px;padding:24px 24px 26px 48px}
+.svc-list li::before{left:22px;top:31px}
+@media (prefers-reduced-motion:no-preference){.svc-list li{transition:transform .15s,box-shadow .15s}.svc-list li:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--mustard)}}
+
+.about .polaroid-wrap{justify-self:start}
+main{overflow-x:clip}
+.bio .hand{font-size:22px;color:var(--rust);margin:0 0 4px}
 </style>
 
 </head>
@@ -278,43 +376,78 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
 
 <main id="top">
 <div class="view" data-view="home">
-  <section class="hero">
+  <section class="hero green">
     <div class="wrap">
       <div>
-        <p class="eyebrow">Custom websites &amp; web apps</p>
-        <h1>Websites and apps that run the busywork <em>so you don't have to.</em></h1>
+        <p class="hand hi">Hi, I'm Faith!</p>
+        <h1>Websites and apps that run the <span class="mark">busywork<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 40 4, 90 18, 130 9 S 185 6, 197 12" fill="none" stroke="#D9A441" stroke-width="7" stroke-linecap="round"/></svg></span> <em>so you don't have to.</em></h1>
         <p class="lead">I build custom websites and web apps for small businesses: online scheduling, sites that get customers to reach out, and tools that take busywork off your plate. You work with me directly, from the first call to launch day.</p>
         <div class="cta-row">
-          <a class="btn solid" href="#contact">Tell me about your project</a>
-          <a class="btn ghost" href="#services">See what I build</a>
+          <a class="btn pop" href="#contact">Tell me about your project</a>
+          <a class="btn light" href="#services">See what I build</a>
         </div>
         <p class="note">Rather talk? Call or text <a class="tel" href="tel:+15199937098"><strong>(519) 993-7098</strong></a></p>
       </div>
 
       <div class="art">
-      <!-- B: block art -->
-      <div class="art-b" data-art="b">
-        <svg id="blockart" viewBox="0 0 460 414" role="img" aria-label="A large M built from colored squares, like a calendar grid"></svg>
+        <canvas id="blockart" width="520" height="520" role="img" aria-label="Colored squares from the logo sliding into a big M, like a calendar grid"></canvas>
         <div class="float-card"><span class="dot"></span><div><b>New booking</b><small>Tue, Oct 7 · 10:30 AM</small></div></div>
-        <div class="float-card two"><b>3 reminders sent</b><small>today</small></div>
-      </div>
-
       </div>
     </div>
   </section>
 
-  <section class="band sand">
+  <div class="ticker" aria-hidden="true"><div>
+    <span>Online booking</span><em>■</em><span>Staff schedules</span><em>■</em><span>Business websites</span><em>■</em><span>Sign-ups</span><em>■</em><span>Customer portals</span><em>■</em><span>Online forms</span><em>■</em>
+    <span>Online booking</span><em>■</em><span>Staff schedules</span><em>■</em><span>Business websites</span><em>■</em><span>Sign-ups</span><em>■</em><span>Customer portals</span><em>■</em><span>Online forms</span><em>■</em>
+  </div></div>
+
+  <section class="band">
     <div class="wrap">
       <div class="sec-head">
-        <h2>What I do</h2>
+        <h2 class="big-h">What I do</h2>
         <p>If it lives on the web and helps your business run, I can build it.</p>
       </div>
-      <div class="overview">
-        <div><h3>Scheduling &amp; booking</h3><p>Let customers book online and keep your staff on the same page.</p></div>
-        <div><h3>Business websites</h3><p>A clean site that tells people what you do and gets them to call.</p></div>
-        <div><h3>Custom web apps</h3><p>Forms, portals and tools shaped around how you already work.</p></div>
+      <div class="blocks">
+        <article><div class="blk" aria-hidden="true"><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i></div><h3>Scheduling &amp; booking</h3><p>Let customers book online and keep your staff on the same page.</p></article>
+        <article><div class="blk" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i></div><h3>Business websites</h3><p>A clean site that tells people what you do and gets them to call.</p></article>
+        <article><div class="blk" aria-hidden="true"><i></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i></i></div><h3>Custom web apps</h3><p>Forms, portals and tools shaped around how you already work.</p></article>
       </div>
       <p class="more"><a class="btn solid" href="#services">See everything I build</a></p>
+    </div>
+  </section>
+
+  <section class="band sand">
+    <div class="wrap meet">
+      <div class="polaroid-wrap">
+        <figure class="polaroid"><span class="tape"></span><img src="faith.jpg" alt="Faith Mitchell smiling in front of a lake, wearing a maroon Haliburton Hockey Haven sweatshirt" width="900" height="1225" loading="lazy"><figcaption>9 summers at camp</figcaption></figure>
+        <span class="sticker">Former program director</span>
+      </div>
+      <div>
+        <p class="hand">Nice to meet you</p>
+        <h2>I spent nine summers at camp, and too many hours in the office.</h2>
+        <p>As a program director, I built my camp its own scheduling app. It gave me back two thirds of my office time. Now I build tools like that for other businesses.</p>
+        <p class="more"><a class="btn ghost" href="#about">Read my story</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band mustard">
+    <div class="wrap demo-grid">
+      <div>
+        <h2>See the difference</h2>
+        <p>This is roughly what my week looked like at camp before and after the scheduling app. Tap "After" to see it.</p>
+      </div>
+      <div class="demo">
+        <div class="demo-head">
+          <b>A program director's week</b>
+          <div class="toggle" role="group" aria-label="Show the week">
+            <button type="button" id="wkBefore" aria-pressed="true">Before</button>
+            <button type="button" id="wkAfter" aria-pressed="false">After</button>
+          </div>
+        </div>
+        <div class="week" id="week"></div>
+        <div class="demo-foot"><span>Time in the office</span><span class="meter"><i id="wkMeter" style="width:75%"></i></span><b id="wkPct">75%</b></div>
+      </div>
     </div>
   </section>
 
@@ -416,9 +549,10 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
   </section>
   <section class="band about-band">
     <div class="wrap about">
-      <figure class="portrait"><img src="faith.jpg" alt="Faith Mitchell" alt="Faith Mitchell smiling in front of a lake, wearing a maroon Haliburton Hockey Haven sweatshirt" width="900" height="1225"></figure>
+      <div class="polaroid-wrap"><figure class="polaroid"><span class="tape"></span><img src="faith.jpg" alt="Faith Mitchell smiling in front of a lake, wearing a maroon Haliburton Hockey Haven sweatshirt" width="900" height="1225"><figcaption>Haliburton Hockey Haven</figcaption></figure></div>
       <div class="bio">
-        <p class="hello">Hi, I'm Faith Mitchell.</p>
+        <p class="hand">Hello there!</p>
+        <p class="hello">I'm Faith Mitchell.</p>
         <p>For nine years I've worked at Haliburton Hockey Haven, a summer sports camp. I started as a counsellor and worked my way up to program director, a role I've held for the last five years.</p>
         <p>Last year I started learning how to build websites and apps, and I decided to build something that would make my own job easier. The result was a complete scheduling app for camp. It ran for my last summer and will stay a part of camp going forward.</p>
         <p>With it, I spent a third as much time in the office. That meant more time with the campers and staff, which has always been the most important part of camp for me.</p>
@@ -480,29 +614,63 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
 
 <script>
 (function () {
-  // Block art: a big M on a calendar-like grid
-  var rows = [
-    "s...o....s",
-    ".g......g.",
-    ".gm....mg.",
-    "sg.m..m.g.",
-    ".g..rr..g.",
-    ".g......go",
-    ".g..s...g.",
-    "og......gs",
-    "..s..o...."
-  ];
-  var fills = { g: "#2F4A3A", m: "#D9A441", r: "#C4553A", s: "#E9E1CF" };
-  var svg = document.getElementById("blockart"), out = "", i = 0;
-  rows.forEach(function (row, y) {
-    row.split("").forEach(function (c, x) {
-      var px = x * 46, py = y * 46;
-      if (c === ".") out += '<rect x="' + px + '" y="' + py + '" width="40" height="40" fill="none" stroke="#E9E1CF" stroke-width="1.5"/>';
-      else if (c === "o") out += '<rect x="' + (px + 1) + '" y="' + (py + 1) + '" width="38" height="38" fill="none" stroke="#C4553A" stroke-width="2.5"/>';
-      else out += '<rect x="' + px + '" y="' + py + '" width="40" height="40" fill="' + fills[c] + '" style="animation-delay:' + (i++ * 25) + 'ms"/>';
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero art: the logo's squares slide into a big M on a calendar-like grid
+  var cv = document.getElementById("blockart"), ctx = cv.getContext("2d");
+  var N = 9, S = 520 / N, pad = 6;
+  var M = ["g.......g","gm.....mg","g.m...m.g","g..m.m..g","g...r...g","g.......g","g.......g","g.......g","g.......g"];
+  var col = { g: "#F7F2E6", m: "#D9A441", r: "#C4553A" };
+  var cells = [];
+  M.forEach(function (row, y) { row.split("").forEach(function (c, x) {
+    if (c !== ".") cells.push({ tx: x, ty: y, c: col[c], x: reduce ? x : Math.random() * N, y: reduce ? y : Math.random() * N });
+  }); });
+  var loose = [[2,6,"#D9A441"],[6,7,"#C4553A"],[4,1,"#D9A441"],[5,5,"#C4553A"],[3,8,"#D9A441"]].map(function (l) { return { x: l[0], y: l[1], c: l[2] }; });
+  var settled = false;
+  function draw() {
+    ctx.clearRect(0, 0, 520, 520);
+    ctx.strokeStyle = "rgba(247,242,230,.14)"; ctx.lineWidth = 1.5;
+    for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) ctx.strokeRect(x * S + pad, y * S + pad, S - pad * 2, S - pad * 2);
+    loose.forEach(function (l) { ctx.strokeStyle = l.c; ctx.lineWidth = 3; ctx.strokeRect(l.x * S + pad + 2, l.y * S + pad + 2, S - pad * 2 - 4, S - pad * 2 - 4); });
+    settled = true;
+    cells.forEach(function (c) {
+      c.x += (c.tx - c.x) * 0.07; c.y += (c.ty - c.y) * 0.07;
+      if (Math.abs(c.tx - c.x) + Math.abs(c.ty - c.y) > 0.01) settled = false;
+      ctx.fillStyle = c.c; ctx.fillRect(c.x * S + pad, c.y * S + pad, S - pad * 2, S - pad * 2);
     });
-  });
-  svg.innerHTML = out;
+    if (!settled) requestAnimationFrame(draw);
+  }
+  draw();
+  if (!reduce) setInterval(function () {
+    var l = loose[Math.floor(Math.random() * loose.length)];
+    do { l.x = Math.floor(Math.random() * N); l.y = Math.floor(Math.random() * N); } while (M[l.y][l.x] !== ".");
+    if (settled) draw();
+  }, 1200);
+
+  // Before / after week demo
+  var days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  var weeks = {
+    before: [["o","o","o","p"],["o","o","p","o"],["o","o","o","p"],["o","p","o","o"],["o","o","p","o"]],
+    after:  [["o","p","p","p"],["p","o","f","p"],["p","o","p","p"],["o","p","p","f"],["p","p","f","o"]]
+  };
+  var label = { o: ["office", "Building schedules"], p: ["people", "With campers & staff"], f: ["free", "Free time"] };
+  function renderWeek(which) {
+    var html = "", office = 0, total = 0, n = 0;
+    weeks[which].forEach(function (d, i) {
+      html += '<div class="wday"><b>' + days[i] + '</b>';
+      d.forEach(function (k) { total++; if (k === "o") office++; html += '<div class="wslot ' + label[k][0] + '" style="animation-delay:' + (n++ * 30) + 'ms">' + label[k][1] + '</div>'; });
+      html += '</div>';
+    });
+    document.getElementById("week").innerHTML = html;
+    var pct = Math.round(office / total * 100);
+    document.getElementById("wkMeter").style.width = pct + "%";
+    document.getElementById("wkPct").textContent = pct + "%";
+    document.getElementById("wkBefore").setAttribute("aria-pressed", which === "before");
+    document.getElementById("wkAfter").setAttribute("aria-pressed", which === "after");
+  }
+  document.getElementById("wkBefore").addEventListener("click", function () { renderWeek("before"); });
+  document.getElementById("wkAfter").addEventListener("click", function () { renderWeek("after"); });
+  renderWeek("before");
 
 })();
 
