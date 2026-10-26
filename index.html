@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&family=Kalam:wght@400;700&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Layout: wide desktop home page, logo-led nav, split hero with a live-looking week schedule, then services, process, example work, contact. Single brand look (light), colors set explicitly. */
 :root{
@@ -244,7 +244,9 @@ body:not([data-style]) .art [data-art="b"],body[data-style="a"] .art [data-art="
 
 
 /* ---- Pizzazz layer (Oct 2026): bold green hero + ticker + colour blocks, handwritten touches and polaroid photo, mustard page heads, chunky buttons and a before/after demo ---- */
-:root{--hand:"Kalam","Segoe Print","Comic Neue",cursive}
+:root{--hand:"Kalam","Segoe Print","Comic Neue",cursive;--display:"Times New Roman",Times,"Tinos",serif;--body:"Times New Roman",Times,"Tinos",serif}
+body{font-size:18px}
+.brand b,.brand small{font-family:"Archivo","Helvetica Neue",Arial,sans-serif}
 .hand{font-family:var(--hand);font-weight:400}
 .btn{border-color:var(--ink);box-shadow:4px 4px 0 var(--ink);border-radius:3px}
 .btn.pop{background:var(--mustard);color:var(--ink)}
